@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.centit.support</groupId>
+  <artifactId>centit-compiler</artifactId>
+  <version>2.1.1-SNAPSHOT</version>
+  <name>centit-compiler</name>
+  <description>表达式编译解释执行器</description>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <!-- mvn deploy -DpomFile=pom.xml -->
+  <distributionManagement>
+  	<repository> 
+  		<id>centit-releases</id>
+         <name>centit-release</name>
+         <url>http://develop.centit.com:8080/nexus/content/repositories/centit-releases/</url>
+  	</repository>
+  	<snapshotRepository>
+  		<id>centit-snapshots</id>
+        <name>centit-snapshots</name>
+        <url>http://develop.centit.com:8080/nexus/content/repositories/centit-snapshots/</url>
+  	</snapshotRepository>
+  </distributionManagement>
+
+  <dependencies>
+  
+	<dependency>
+		<groupId>com.centit.support</groupId>
+		<artifactId>centit-utils</artifactId>
+		<version>2.1.1-SNAPSHOT</version>
+	</dependency>  
+	
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<scope>test</scope>
+  		<version>4.9</version>
+   	</dependency>
+   	
+  </dependencies>
+  
+  <build>
+		<plugins>
+	        <plugin>  
+	            <artifactId>maven-compiler-plugin</artifactId>  
+	            <version>2.3.2</version>  
+	            <configuration>  
+	                <source>1.7</source>  
+	                <target>1.7</target>  
+	                <encoding>UTF-8</encoding>  
+	            </configuration>  
+	        </plugin>  		
+			<!-- 打包时添加源码 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>  
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
