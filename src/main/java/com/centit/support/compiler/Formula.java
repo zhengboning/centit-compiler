@@ -429,16 +429,7 @@ public class Formula {
 
 	public String calculate(String szExpress,Map<String,Object> varMap) 
 	{
-		preTreat.setVariableTranslate(new MapTranslate(varMap) );
-		String express=preTreat.runPretreatment(szExpress);
-		
-		lex.setFormula(express);
-
-		String sRes = getFormula();
-		if(sRes == null || sRes.length()==0) 
-			return "";
-		
-		return StringRegularOpt.trimString(sRes);
+		return calculate(szExpress,new MapTranslate(varMap));
 	}
 	
 	public String calculate(String szExpress,VariableTranslate varTrans) 
@@ -458,7 +449,8 @@ public class Formula {
 	// return the error point
 	public int checkFormula(String szExpress)
 	{
-		szExpress=preTreat.runPretreatment(szExpress);
+		/*if(hasPreTreat)
+			szExpress=preTreat.runPretreatment(szExpress);*/		
 		int nNextType = 1;
 		int nBrackets = 0;
 
