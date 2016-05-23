@@ -2,6 +2,7 @@ package com.centit.support.compiler;
 
 import java.util.Map;
 
+import com.centit.support.algorithm.ReflectionOpt;
 import com.centit.support.algorithm.StringBaseOpt;
 import com.centit.support.algorithm.StringRegularOpt;
 
@@ -21,7 +22,8 @@ public class MapTranslate implements VariableTranslate {
 		if(varMap==null)
 			return "\"\"";
 		
-		Object res = varMap.get(varName);
+		Object res = ReflectionOpt.attainExpressionValue(varMap, varName); 
+			// varMap.get(varName);
 		if(res==null)
 			return "\"\"";
 		return StringRegularOpt.quotedString(StringBaseOpt.objectToString(res));		

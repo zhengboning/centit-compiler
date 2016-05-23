@@ -15,6 +15,24 @@ public class FormulaTest {
 		//assertEquals("nihao,地球 !",s);
 	}
 	
+	public static void testFormula2() {
+	
+		Formula f = new Formula();
+		Map<String,Object> varMap = new HashMap<String,Object>();
+		Map<String,Object> varA = new HashMap<String,Object>();
+		varA.put("aa", 100);
+		varA.put("ab", 200);
+		Map<String,Object> varB = new HashMap<String,Object>();
+		varB.put("ba", 300);
+		varB.put("bb", 400);
+		varMap.put("a", varA);
+		varMap.put("b", varB);
+		varMap.put("c", "500");
+		String s = f.calculate("a.aa+a.ab+b.ba+b.bb+c",varMap);
+		System.out.println(s);
+		System.out.println("Done!");
+	}
+	
 
 	public static void testLexer() {
 		Lexer l = new Lexer("hello jane , jan say!");
@@ -29,7 +47,7 @@ public class FormulaTest {
 	}
 	
 	public  static void  main(String[] args)   { 
-		testFormula();
+		testFormula2();
 		//System.out.println(Double.valueOf("123123.4545").intValue());
 
 	}
