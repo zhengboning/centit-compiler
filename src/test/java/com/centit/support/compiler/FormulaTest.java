@@ -5,10 +5,9 @@ import java.util.Map;
 
 public class FormulaTest {
 	
-
 	public static void testFormula() {
 		Formula f = new Formula();
-		f.setVariableTranslate(new MapTranslate());
+		//f.setVariableTranslate(new MapTranslate());
 		//System.out.println(f.m_preTreat.runPretreatment(" if(2>1,${userinfo.usercode},case(true,3<2,'hello',4*5<19,'helleo, weror','nihao,地球')) + ' !' "));
 		String s = f.calculate("countnull(1,2,\"\",4,6,,3,,1)");
 		System.out.println(s);
@@ -28,6 +27,7 @@ public class FormulaTest {
 		varMap.put("a", varA);
 		varMap.put("b", varB);
 		varMap.put("c", "500");
+		System.out.println(f.checkFormula("a.aa+a.ab+b.ba+b.bb+c"));
 		String s = f.calculate("a.aa+a.ab+b.ba+b.bb+c",varMap);
 		System.out.println(s);
 		System.out.println("Done!");

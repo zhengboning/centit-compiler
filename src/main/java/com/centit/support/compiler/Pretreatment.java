@@ -1,14 +1,7 @@
 package com.centit.support.compiler;
 
 public class Pretreatment {
- // ${variable name}
-	private VariableTranslate varTrans;
-	
-	public void setVariableTranslate(VariableTranslate varTrans)
-	{
-		this.varTrans =  varTrans;
-	}
-	
+
 	/**get value and label from formula and translate 
 	 * 变量 形式如 ${变量名}
 	 * 标识符名->标识符值的转变
@@ -17,7 +10,7 @@ public class Pretreatment {
 	 * @param szFormula 表达式
 	 * @return 新的表达式
 	 */
-	public String runPretreatment(String szFormula){
+	public static String runPretreatment(String szFormula,VariableTranslate varTrans){
 		Lexer varMorp = new Lexer();
 		varMorp.setFormula(szFormula);
 		StringBuilder sDesFormula= new StringBuilder();

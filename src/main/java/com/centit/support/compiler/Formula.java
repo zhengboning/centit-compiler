@@ -10,25 +10,9 @@ import com.centit.support.algorithm.StringRegularOpt;
 public class Formula {
 
 	private Lexer lex;
-	private Pretreatment preTreat;
-	private boolean hasPreTreat;
 	public Formula()
 	{
 		lex = new Lexer();
-		preTreat = new Pretreatment();
-		hasPreTreat = false;
-		//m_preTreat.setVariableTranslate(new SimpleTranslate("1"));
-	}
-	
-	public void setVariableTranslate(VariableTranslate varTrans)
-	{
-		hasPreTreat = true;
-		preTreat.setVariableTranslate(varTrans);
-	}
-		
-	public void clearVariableTranslate()
-	{
-		hasPreTreat = false;
 		//m_preTreat.setVariableTranslate(new SimpleTranslate("1"));
 	}
 
@@ -413,20 +397,25 @@ public class Formula {
 		str = runFunc(slOperand,EmbedFunc.functionsList[nFuncNo].nFuncID);
 		return str;	
 	}
-
+	//不一致的问题 需要修改
+	/**
+	 * 计算表达式，使用 setVariableTranslate 中设置的变量转换器
+	 * @param szExpress
+	 * @return
+	 */
 	public String calculate(String szExpress)
 	{
-		if(hasPreTreat)
-			szExpress=preTreat.runPretreatment(szExpress);
-		
 		lex.setFormula(szExpress);
-
 		String sRes = getFormula();
 		if(sRes == null || sRes.length()==0) return "";
-		
 		return StringRegularOpt.trimString(sRes);
 	}
-
+	
+	/**
+	 * @param szExpress
+	 * @param varMap 这个参数可以为null 如果为null表达式中的标识符和变量都会被替换为""这个空字符串
+	 * @return
+	 */
 	public String calculate(String szExpress,Map<String,Object> varMap) 
 	{
 		return calculate(szExpress,new MapTranslate(varMap));
@@ -434,19 +423,15 @@ public class Formula {
 	
 	public String calculate(String szExpress,VariableTranslate varTrans) 
 	{
-		preTreat.setVariableTranslate(varTrans);
-		szExpress=preTreat.runPretreatment(szExpress);
-		
-		lex.setFormula(szExpress);
-
-		String sRes = getFormula();
-		if(sRes == null || sRes.length()==0) 
-			return "";
-		
-		return StringRegularOpt.trimString(sRes);
+		return calculate(Pretreatment.runPretreatment(szExpress,varTrans));
 	}
 	
 	// return the error point
+	/**
+	 * 
+	 * @param szExpress
+	 * @return 返回出错的位置，0 表示表达式格式检查通过
+	 */
 	public int checkFormula(String szExpress)
 	{
 		/*if(hasPreTreat)
@@ -490,6 +475,4 @@ public class Formula {
 		else
 			return lex.getCurrPos()+1;
 	}
-	
-
 }
