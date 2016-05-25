@@ -216,8 +216,9 @@ public class Lexer {
 						startPos++;
 					 startPos++;
 				}
-			if(startPos < sl) 
-				startPos ++;
+			if(startPos >= sl)//没有找到配对的\"
+				return null;			
+			startPos ++;
 			canAcceptOpt = true;
 			s = formulaSen.substring(bp, startPos );
 		}else if("\'".equals(s)){
@@ -227,8 +228,9 @@ public class Lexer {
 						startPos++;
 					 startPos++;
 				}
-			if(startPos < sl) 
-				startPos ++;
+			if(startPos >= sl)//没有找到配对的\'
+				return null;			
+			startPos ++;
 			canAcceptOpt = true;
 			s = formulaSen.substring(bp, startPos );
 		}
