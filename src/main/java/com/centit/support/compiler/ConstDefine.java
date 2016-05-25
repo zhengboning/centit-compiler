@@ -82,5 +82,5 @@ public class ConstDefine {
 	final static public int   OP_OR			 = OP_BITOR;  //||	
 	final static public int   OP_LOGICOR	 = 48;  // or 	
 	final static public int   OP_AND         = OP_BITAND;  //&&
-	final static public int   OP_LOGICAND	 = 49;  // or 	
+	final static public int   OP_LOGICAND	 = 49;  // and	
 }
