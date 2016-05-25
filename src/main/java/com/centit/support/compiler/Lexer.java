@@ -14,38 +14,38 @@ public class Lexer {
 	private boolean canAcceptOpt;
 	private int startPos ;	
 	
-	public static final int NO_SINGLE_LINE_NOTE=0;
+	public static final int  LANG_TYPE_DEFAULT=0;
 	/**
 	 * java c++ 的注释方式 用 // 单行注释，/* 多行注释
 	 */
-	public static final int NOTE_TYPE_JAVA=1;
+	public static final int LANG_TYPE_JAVA=1;
 	/**
 	 * SQL 的注释方式 用 -- 单行注释，/* 多行注释
 	 */
-	public static final int NOTE_TYPE_SQL=2;
+	public static final int LANG_TYPE_SQL=2;
 	
-	private int noteType;
+	private int languageType;
 	
 	public Lexer()
 	{
-		noteType = NOTE_TYPE_JAVA;
+		languageType = LANG_TYPE_JAVA;
 		setFormula(null);
 	}
 	
 	public Lexer(String sFormula)
 	{
-		noteType = NOTE_TYPE_JAVA;
+		languageType = LANG_TYPE_JAVA;
 		setFormula(sFormula);
 	}
-	public Lexer(int noteType)
+	public Lexer(int langType)
 	{
-		this.noteType = noteType;
+		this.languageType = langType;
 		setFormula(null);
 	}
 	
-	public Lexer(String sFormula,int noteType)
+	public Lexer(String sFormula,int langType)
 	{
-		this.noteType = noteType;
+		this.languageType = langType;
 		setFormula(sFormula);
 	}
 	
@@ -212,7 +212,7 @@ public class Lexer {
 		if("\"".equals(s)){
 			int bp = startPos-1;
 			while(startPos < sl && formulaSen.charAt(startPos) != '\"') {
-				 if (formulaSen.charAt(startPos)=='\\')
+				 if (this.languageType == LANG_TYPE_JAVA && formulaSen.charAt(startPos)=='\\')
 						startPos++;
 					 startPos++;
 				}
@@ -224,7 +224,7 @@ public class Lexer {
 		}else if("\'".equals(s)){
 			int bp = startPos-1;
 			while(startPos < sl && formulaSen.charAt(startPos) != '\'') {
-				 if (formulaSen.charAt(startPos)=='\\')
+				 if(this.languageType == LANG_TYPE_JAVA &&  formulaSen.charAt(startPos)=='\\')
 						startPos++;
 					 startPos++;
 				}
@@ -254,8 +254,8 @@ public class Lexer {
 			curWord =  getARegularWord();
 			if(curWord==null || "".equals(curWord))
 				break;
-			else if((this.noteType == NOTE_TYPE_JAVA && "//".equals(curWord)) ||
-					(this.noteType == NOTE_TYPE_SQL && "--".equals(curWord)) )
+			else if((this.languageType == LANG_TYPE_JAVA && "//".equals(curWord)) ||
+					(this.languageType == LANG_TYPE_SQL && "--".equals(curWord)) )
 				this.seekToLineEnd();
 			else if("/*".equals(curWord))
 				this.seekToAnnotateEnd();
@@ -291,8 +291,10 @@ public class Lexer {
 		int sl = formulaSen.length();
 		while( (startPos < sl-1 ) && (formulaSen.charAt(startPos) != '*' || formulaSen.charAt(startPos+1) != '/' ))
 			startPos ++;
-		if(formulaSen.charAt(startPos) == '*' || formulaSen.charAt(startPos+1) == '/')
+		if(startPos < sl-1 && formulaSen.charAt(startPos) == '*' && formulaSen.charAt(startPos+1) == '/')
 			startPos += 2;
+		else 
+			startPos = sl;
 	}
 	
 	/**
@@ -458,11 +460,11 @@ public class Lexer {
 	}
 
 	public int getNoteType() {
-		return noteType;
+		return languageType;
 	}
 
 	public void setNoteType(int noteType) {
-		this.noteType = noteType;
+		this.languageType = noteType;
 	}
 
 }
