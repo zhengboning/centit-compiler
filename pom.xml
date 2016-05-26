@@ -2,34 +2,63 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.centit.support</groupId>
   <artifactId>centit-compiler</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
-  <name>centit-compiler</name>
-  <description>表达式编译解释执行器</description>
+  <version>2.1</version>
+  <name>com.centit.support:centit-compiler</name>
+  <description>一个简易的编译系统包括一个词法分析器lexer和一个表达式运算程序，支持四则运行、逻辑运行等等</description>
+  <url>https://github.com/ndxt/centit-compiler</url>
   
+  <licenses>
+     <license>
+       <name>The Apache License, Version 2.0</name>
+       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+     </license>
+    </licenses>  
+   
+    <developers>
+	    <developer>
+	      <name>杨淮生</name>
+	      <email>codefan@sina.com</email>
+	      <organization>centit.com</organization>
+	      <organizationUrl>http://www.centit.com</organizationUrl>
+	    </developer>	    
+	</developers>
+	
+	<scm>
+	      <connection>
+	         scm:git:https://github.com/ndxt/centit-compiler.git
+	      </connection>
+	      <developerConnection>
+	         scm:git:https://github.com/ndxt/centit-compiler.git
+	      </developerConnection>
+	      <url>https://github.com/ndxt/centit-compiler</url>
+	     <tag>v1.12</tag>
+	  </scm>
+	  
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
   <!-- mvn deploy -DpomFile=pom.xml -->
-  <distributionManagement>
-  	<repository> 
-  		<id>centit-releases</id>
-         <name>centit-release</name>
-         <url>http://develop.centit.com:8080/nexus/content/repositories/centit-releases/</url>
-  	</repository>
-  	<snapshotRepository>
-  		<id>centit-snapshots</id>
-        <name>centit-snapshots</name>
-        <url>http://develop.centit.com:8080/nexus/content/repositories/centit-snapshots/</url>
-  	</snapshotRepository>
-  </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<name>sonatype-releases</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>sonatype-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 
   <dependencies>
   
 	<dependency>
 		<groupId>com.centit.support</groupId>
 		<artifactId>centit-utils</artifactId>
-		<version>2.1.1-SNAPSHOT</version>
+		<version>2.1</version>
 	</dependency>  
 	
   	<dependency>
